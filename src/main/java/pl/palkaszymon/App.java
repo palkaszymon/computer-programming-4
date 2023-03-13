@@ -14,15 +14,6 @@ public class App {
 
         ArrayList<String> ladies = new ArrayList<>();
 
-        for (String name : names){
-            if(name.endsWith("a")){
-                ladies.add(name);
-            }
-        }
-
-        for (String ladyName : ladies){
-            greeter.greet(ladyName);
-        }
         names.stream()
                 .filter(name -> name.endsWith("a"))
                 .filter(name -> name.startsWith("A"))
