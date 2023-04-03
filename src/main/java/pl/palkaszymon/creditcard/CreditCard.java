@@ -9,6 +9,8 @@ public class CreditCard {
     private String cardNumber;
     private int counter = 0;
 
+    private BigDecimal debt = BigDecimal.valueOf(0);
+
     public CreditCard(String cardNumber) {
         this.cardNumber = cardNumber;
     }
@@ -21,8 +23,7 @@ public class CreditCard {
                 } else {
                     this.setBalance(getBalance().subtract(value));
                     this.addCounter();
-                    System.out.println("Withdrawn " + value);
-                    System.out.println(counter);
+                    debt = debt.add(value);
                 }
             }else {
                 throw new WithdrawBiggerThanBalanceException();
@@ -61,8 +62,16 @@ public class CreditCard {
         return balance;
     }
 
+    public void repay(BigDecimal repayAmount){
+        debt = debt.subtract(repayAmount);
+    }
+
     public BigDecimal getLimit() {
         return limit;
+    }
+
+    public BigDecimal getDebt() {
+        return debt;
     }
 
     public void setBalance(BigDecimal balance) {
