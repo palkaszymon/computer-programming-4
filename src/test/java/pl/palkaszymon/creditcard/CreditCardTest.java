@@ -98,7 +98,7 @@ public class CreditCardTest {
         card.assignLimit(BigDecimal.valueOf(1000));
 
         assertThrows(
-                ReassignCreditException.class,
+                LimitAlreadyAssignedException.class,
                 () -> card.assignLimit(BigDecimal.valueOf(1100))
         );
     }
