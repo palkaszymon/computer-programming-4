@@ -3,6 +3,8 @@ package pl.palkaszymon.sales;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import pl.palkaszymon.reservation.Reservation;
+import pl.palkaszymon.reservation.ReservationRepository;
 
 import java.math.BigDecimal;
 

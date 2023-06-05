@@ -1,4 +1,4 @@
-package pl.palkaszymon.sales;
+package pl.palkaszymon.reservation;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;

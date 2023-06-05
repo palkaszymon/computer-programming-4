@@ -1,4 +1,4 @@
-package pl.palkaszymon.sales;
+package pl.palkaszymon.reservation;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

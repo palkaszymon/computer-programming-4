@@ -1,43 +1,63 @@
 package pl.palkaszymon.sales;
 
+import pl.palkaszymon.sales.cart.Cart;
+import pl.palkaszymon.sales.cart.CartStorage;
+import pl.palkaszymon.sales.offer.Offer;
+import pl.palkaszymon.sales.offer.OfferCalculator;
+import pl.palkaszymon.sales.offer.EveryNItemLineDiscountPolicy;
+import pl.palkaszymon.sales.offer.TotalDiscountPolicy;
+import pl.palkaszymon.sales.productdetails.NoSuchProductException;
+import pl.palkaszymon.sales.productdetails.ProductDetails;
+import pl.palkaszymon.sales.productdetails.ProductDetailsProvider;
+
+import java.math.BigDecimal;
 import java.util.Optional;
 
 public class Sales {
     private CartStorage cartStorage;
-    private ProductDetailsProvider alwaysMissingProductDetailsProvider;
+    private ProductDetailsProvider productDetailsProvider;
+    private final OfferCalculator offerCalculator;
 
-    public Sales(CartStorage cartStorage, ProductDetailsProvider productDetailsProvider) {
+    public Sales(CartStorage cartStorage, ProductDetailsProvider productDetails, OfferCalculator offerCalculator) {
         this.cartStorage = cartStorage;
-        this.alwaysMissingProductDetailsProvider = productDetailsProvider;
+        this.productDetailsProvider = productDetails;
+        this.offerCalculator = offerCalculator;
     }
 
     public void addToCart(String customerId, String productId) {
-        Cart cart = loadForCustomer(customerId)
+        Cart customerCart = loadCartForCustomer(customerId)
                 .orElse(Cart.empty());
 
-        ProductDetails product = loadDetailsForProduct(productId);
-        //        .orElseThrow(() -> new NoSuchProductException());
-        cart.add(product);
-        cartStorage.save(customerId, cart);
-    }
-
-    private ProductDetails loadDetailsForProduct(String productId) {
-        return alwaysMissingProductDetailsProvider.load(productId)
+        ProductDetails product = loadProductDetails(productId)
                 .orElseThrow(() -> new NoSuchProductException());
+
+        customerCart.add(product.getId());
+
+        cartStorage.addForUser(customerId, customerCart);
     }
 
-    private Optional<Cart> loadForCustomer(String customerId) {
+    private Optional<ProductDetails> loadProductDetails(String productId) {
+        return productDetailsProvider.load(productId);
+    }
+
+    private Optional<Cart> loadCartForCustomer(String customerId) {
         return cartStorage.load(customerId);
     }
 
-    public Offer getCurrentOffer(String currentCustomer) {
-//        return offerCalculator.calculate(this.cartStorage.load(currentCustomer));
-        return new Offer();
+    public Offer getCurrentOffer(String customerId) {
+        Cart customerCart = loadCartForCustomer(customerId)
+                .orElse(Cart.empty());
+
+        Offer offer = this.offerCalculator.calculateOffer(
+                customerCart.getCartItems(),
+                new TotalDiscountPolicy(BigDecimal.valueOf(500), BigDecimal.valueOf(50)),
+                new EveryNItemLineDiscountPolicy(5)
+        );
+
+        return offer;
     }
 
-    public int itemsAmount(String customerId) {
-        Cart cart = loadForCustomer(customerId)
-                .orElse(Cart.empty());
-        return  cart.itemsCount();
+    public void acceptOffer() {
+
     }
 }

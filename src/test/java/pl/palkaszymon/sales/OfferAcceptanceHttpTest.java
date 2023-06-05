@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import pl.palkaszymon.ProductCatalog.Product;
 import pl.palkaszymon.ProductCatalog.ProductCatalog;
+import pl.palkaszymon.reservation.ReservationData;
 
 import static org.junit.jupiter.api.Assertions.*;
 

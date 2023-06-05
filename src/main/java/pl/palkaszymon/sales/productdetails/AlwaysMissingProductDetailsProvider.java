@@ -1,4 +1,7 @@
-package pl.palkaszymon.sales;
+package pl.palkaszymon.sales.productdetails;
+
+import pl.palkaszymon.sales.productdetails.ProductDetails;
+import pl.palkaszymon.sales.productdetails.ProductDetailsProvider;
 
 import java.util.Optional;
 

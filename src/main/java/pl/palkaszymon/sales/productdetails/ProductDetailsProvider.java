@@ -1,4 +1,4 @@
-package pl.palkaszymon.sales;
+package pl.palkaszymon.sales.productdetails;
 
 import java.util.Optional;
 

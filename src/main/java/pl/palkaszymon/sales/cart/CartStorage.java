@@ -1,4 +1,4 @@
-package pl.palkaszymon.sales;
+package pl.palkaszymon.sales.cart;
 
 import java.util.HashMap;
 import java.util.Optional;
@@ -14,7 +14,7 @@ public class CartStorage {
         return Optional.ofNullable(carts.get(customerId));
     }
 
-    public void save(String customerId, Cart cart) {
+    public void addForUser(String customerId, Cart cart) {
         carts.put(customerId, cart);
     }
 }

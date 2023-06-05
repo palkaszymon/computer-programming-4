@@ -1,11 +1,13 @@
-package pl.palkaszymon.sales;
+package pl.palkaszymon.sales.productdetails;
 
 import pl.palkaszymon.ProductCatalog.Product;
 import pl.palkaszymon.ProductCatalog.ProductCatalog;
+import pl.palkaszymon.sales.productdetails.ProductDetails;
+import pl.palkaszymon.sales.productdetails.ProductDetailsProvider;
 
 import java.util.Optional;
 
-public class ProductCatalogProductDetailsProvider implements ProductDetailsProvider{
+public class ProductCatalogProductDetailsProvider implements ProductDetailsProvider {
     ProductCatalog productCatalog;
 
     public ProductCatalogProductDetailsProvider(ProductCatalog productCatalog){

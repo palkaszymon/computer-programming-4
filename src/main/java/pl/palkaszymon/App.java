@@ -4,13 +4,12 @@ package pl.palkaszymon;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-import pl.palkaszymon.ProductCatalog.Product;
 import pl.palkaszymon.ProductCatalog.ProductCatalog;
 import pl.palkaszymon.ProductCatalog.HashMapProductStorage;
-import pl.palkaszymon.sales.CartStorage;
-import pl.palkaszymon.sales.AlwaysMissingProductDetailsProvider;
-import pl.palkaszymon.sales.ProductCatalogProductDetailsProvider;
+import pl.palkaszymon.sales.cart.CartStorage;
 import pl.palkaszymon.sales.Sales;
+import pl.palkaszymon.sales.offer.OfferCalculator;
+import pl.palkaszymon.sales.productdetails.InMemoryProductDetailsProvider;
 
 import java.math.BigDecimal;
 
@@ -38,6 +37,7 @@ public class App {
     }
     @Bean
     Sales createSales(ProductCatalog catalog) {
-        return new Sales(new CartStorage(), new ProductCatalogProductDetailsProvider(catalog));
+        InMemoryProductDetailsProvider productDetails = new InMemoryProductDetailsProvider();
+        return new Sales(new CartStorage(), productDetails, new OfferCalculator(productDetails));
     }
 }

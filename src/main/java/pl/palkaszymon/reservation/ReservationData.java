@@ -1,4 +1,4 @@
-package pl.palkaszymon.sales;
+package pl.palkaszymon.reservation;
 
 public class ReservationData {
     public String getPaymentId() {
