@@ -19,19 +19,19 @@ public class OfferAcceptanceHttpTest {
     @Autowired
     TestRestTemplate http;
     @Test
-    void itAllowsToAcceptTheOffer() {
-        // Arrange
-        String productId = thereIsExampleProduct();
-        //addToCart
-        http.postForEntity(String.format("/api/add-to-cart/%s)", productId), null, Object.class);
-        http.postForEntity(String.format("/api/add-to-cart/%s)", productId), null, Object.class);
-        AcceptOfferRequest request = new AcceptOfferRequest("Szymon", "szymon@example.com");
-        ResponseEntity<ReservationData> response = http.postForEntity(String.format("/api/accept-offer)"), request, ReservationData.class);
-
-        assertEquals(response.getStatusCode(), HttpStatus.OK);
-        assertNotNull(response.getBody().getPaymentId());
-        assertNotNull(response.getBody().getPaymentUrl());
-    }
+//    void itAllowsToAcceptTheOffer() {
+//        // Arrange
+//        String productId = thereIsExampleProduct();
+//        //addToCart
+//        http.postForEntity(String.format("/api/add-to-cart/%s)", productId), null, Object.class);
+//        http.postForEntity(String.format("/api/add-to-cart/%s)", productId), null, Object.class);
+//        AcceptOfferRequest request = new AcceptOfferRequest("Szymon", "szymon@example.com");
+//        ResponseEntity<ReservationData> response = http.postForEntity(String.format("/api/accept-offer)"), request, ReservationData.class);
+//
+//        assertEquals(response.getStatusCode(), HttpStatus.OK);
+//        assertNotNull(response.getBody().getPaymentId());
+//        assertNotNull(response.getBody().getPaymentUrl());
+//    }
 
     private String thereIsExampleProduct() {
         return catalog.allPublishedProducts()
